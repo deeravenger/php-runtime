@@ -15,6 +15,5 @@ class DisableFunction
     {
         $msg = sprintf("%s(%s) has been disabled for security reasons", $name, implode(', ', $arguments));
         throw new Exception($msg);
-//        trigger_error($msg, E_USER_WARNING);
     }
 }

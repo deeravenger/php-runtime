@@ -64,7 +64,7 @@ class Runtime
     public function overrideFunction($name, \Closure $function)
     {
         $name = strtolower(trim(strval($name)));
-        if (OverrideFunction::set($name, $function)) {
+        if (OverrideFunction::register($name, $function)) {
             $this->_overrideFunctions[] = $name;
         }
         return $this;

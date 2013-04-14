@@ -17,6 +17,11 @@ class Parser
     /** @var array */
     protected $_overrideFunctions = array();
 
+    /**
+     * @param $sourceCode
+     * @param array $disableFunctions
+     * @param array $overrideFunctions
+     */
     public function __construct($sourceCode, array $disableFunctions, array $overrideFunctions)
     {
         $this->_sourceCode = $sourceCode;
@@ -24,6 +29,10 @@ class Parser
         $this->_overrideFunctions = $overrideFunctions;
     }
 
+    /**
+     * Parse and transform your code
+     * @return string
+     */
     public function parse()
     {
         $blocks = $this->_parseBlocks($this->_sourceCode);
@@ -34,7 +43,7 @@ class Parser
     }
 
     /**
-     * Разбиваем на блоки текст/код
+     * Group blocks (php, text)
      * @param $sourceCode
      * @return array
      */
@@ -80,6 +89,11 @@ class Parser
         return $blocks;
     }
 
+    /**
+     * Clear empty blocks
+     * @param array $blocks
+     * @return array
+     */
     protected function _clearBlocks(array $blocks)
     {
         $result = array();
@@ -99,6 +113,11 @@ class Parser
         return $result;
     }
 
+    /**
+     * Glue all blocks
+     * @param array $blocks
+     * @return string
+     */
     protected function _glueBlocks(array $blocks)
     {
         $result = array();
@@ -112,6 +131,11 @@ class Parser
         return implode("\n", $result);
     }
 
+    /**
+     * Convert text block to php block
+     * @param $text
+     * @return string
+     */
     protected function _textToCode($text)
     {
         $tokens = token_get_all(trim($text));
@@ -159,6 +183,11 @@ class Parser
         return $result;
     }
 
+    /**
+     * Something interesting here
+     * @param $sourceCode
+     * @return string
+     */
     protected function _parseCode($sourceCode)
     {
         $result = '';
