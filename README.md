@@ -11,7 +11,7 @@ echo str_replace( 0, 1, 100 );
 CODE;
 
 // thrown exception, becouse str_replace disabled
-DmRuntime::code($code)
+Dm\Runtime::code($code)
     ->disableFunction('str_replace')
     ->execute();
 ```
@@ -28,7 +28,7 @@ CODE;
 echo str_replace( 0, 1, 100 );
 
 // output 000
-DmRuntime::code($code)
+Dm\Runtime::code($code)
     ->overrideFunction('str_replace', function ($search, $replace, $subject) {
         echo str_replace($replace, $search, $subject);
     })
