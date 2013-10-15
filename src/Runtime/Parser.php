@@ -208,23 +208,21 @@ class Parser
                     case T_USE;
                         $waitingSemicolon = true;
                         break;
-                    case T_EVAL:
-//                    case T_EXIT:
-//                    case T_INCLUDE:
-//                    case T_INCLUDE_ONCE:
-//                    case T_REQUIRE:
-//                    case T_REQUIRE_ONCE:
-                    case T_ISSET:
-                    case T_LIST:
+                    // exit, echo, print - is not a function
+                    case T_EXIT:
+                    case T_ECHO:
                     case T_PRINT:
+                    case T_EVAL:
+                    case T_EMPTY:
+                    case T_ISSET:
                     case T_UNSET:
                     case T_STRING:
                         $lowerValue = strtolower(trim($value));
                         if (!$skip && !$waitingSemicolon) {
                             if (in_array($lowerValue, $this->_disableFunctions)) {
-                                $value = sprintf("Dm\\Runtime\\DisableFunction::%s", $lowerValue);
+                                $value = sprintf("Dm\\Runtime\\DisableFunction::func_%s", $lowerValue);
                             } elseif (in_array($lowerValue, $this->_overrideFunctions)) {
-                                $value = sprintf("Dm\\Runtime\\OverrideFunction::%s", $lowerValue);
+                                $value = sprintf("Dm\\Runtime\\OverrideFunction::func_%s", $lowerValue);
                             }
                         }
                         break;

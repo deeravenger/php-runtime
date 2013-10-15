@@ -22,16 +22,15 @@ class OverrideFunction
      */
     public static function register($name, \Closure $function)
     {
-        $result = false;
-        if (function_exists($name)) {
-            self::$_overrideFunctions[$name] = $function;
-            $result = true;
-        }
-        return $result;
+        self::$_overrideFunctions[$name] = $function;
+        return true;
     }
 
     public static function __callStatic($name, $arguments)
     {
+        if (substr($name, 0, 5) == 'func_') {
+            $name = substr($name, 5);
+        }
         if (!isset(self::$_overrideFunctions[$name])) {
             throw new Exception(sprintf("Function %s() not exists", $name));
         } else {
