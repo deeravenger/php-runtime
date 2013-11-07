@@ -1,14 +1,13 @@
 <?php
-/**
- * PHP Runtime
- *
- * @link      http://github.com/dmkuznetsov/php-runtime
- * @copyright Copyright (c) 2013 Dmitry Kuznetsov <kuznetsov2d@gmail.com>
- * @license   http://raw.github.com/dmkuznetsov/php-runtime/master/LICENSE.txt New BSD License
- */
 namespace Dm\Runtime;
-use Dm\Runtime\Exception as Exception;
 
+/**
+ * Class OverrideFunction
+ * @package Dm\Runtime
+ * @link https://github.com/dmkuznetsov/php-runtime
+ * @author Dmitry Kuznetsov <kuznetsov2d@gmail.com>
+ * @license The MIT License (MIT)
+ */
 class OverrideFunction
 {
     /** @var array */
@@ -32,7 +31,7 @@ class OverrideFunction
             $name = substr($name, 5);
         }
         if (!isset(self::$_overrideFunctions[$name])) {
-            throw new Exception(sprintf("Function %s() not exists", $name));
+            throw new \Dm\Runtime\Exception(sprintf("Function %s() not exists", $name));
         } else {
             call_user_func_array(self::$_overrideFunctions[$name], $arguments);
         }

@@ -1,16 +1,14 @@
 <?php
-/**
- * PHP Runtime
- *
- * @link      http://github.com/dmkuznetsov/php-runtime
- * @copyright Copyright (c) 2013 Dmitry Kuznetsov <kuznetsov2d@gmail.com>
- * @license   http://raw.github.com/dmkuznetsov/php-runtime/master/LICENSE.txt New BSD License
- */
-namespace Dm;
-use Dm\Runtime\Parser;
-use Dm\Runtime\OverrideFunction;
+namespace Dm\Runtime;
 
-class Runtime
+/**
+ * Class Api
+ * @package Dm\Runtime
+ * @link https://github.com/dmkuznetsov/php-runtime
+ * @author Dmitry Kuznetsov <kuznetsov2d@gmail.com>
+ * @license The MIT License (MIT)
+ */
+class Api
 {
     /** @var string */
     protected $_sourceCode;
@@ -64,7 +62,7 @@ class Runtime
     public function overrideFunction($name, \Closure $function)
     {
         $name = strtolower(trim(strval($name)));
-        if (OverrideFunction::register($name, $function)) {
+        if (\Dm\Runtime\OverrideFunction::register($name, $function)) {
             $this->_overrideFunctions[] = $name;
         }
         return $this;
@@ -91,7 +89,7 @@ class Runtime
 
     protected function _parse()
     {
-        $parser = new Parser($this->_sourceCode, $this->_disableFunctions, $this->_overrideFunctions);
+        $parser = new \Dm\Runtime\Parser($this->_sourceCode, $this->_disableFunctions, $this->_overrideFunctions);
         $this->_code = $parser->parse();
     }
 }
